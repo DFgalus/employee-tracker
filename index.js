@@ -159,3 +159,54 @@ function viewEmployeesByDept() {
       runEmployeeDB()
     })
   }
+
+  //View emmployee by role
+function viewEmployeesByRole() {
+    connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, role.title AS Title FROM employees JOIN role ON employees.roleID = role.id ORDER BY role.id", 
+    function(err, res) {
+    if (err) throw err
+    console.log ("");
+    console.log("*** EMPLOYEES LIST BY ROLE ***")
+    console.log ("");
+    console.table(res)
+    runEmployeeDB()
+    })
+}
+
+  //array for employee addition
+let roleArr = [];                                            
+function selectRole() {
+    connection.query("SELECT * FROM role", function(err, res) {
+      if (err) throw err
+      for (var i = 0; i < res.length; i++) {
+        roleArr.push(res[i].title);
+      }
+    })
+    return roleArr;
+  }
+
+  //manager array for employee addition
+let managersArr = [];
+function selectManager() {
+    connection.query("SELECT firstName, lastName FROM employees", function(err, res) {
+      if (err) throw err
+      for (var i = 0; i < res.length; i++) {
+        managersArr.push(res[i].firstName);
+      }
+    })
+    return managersArr;
+  }
+
+  //dept array set up for role addition
+var deptArr = [];
+function selectDepartment() {
+  connection.query("SELECT * FROM department", function(err, res) {
+    if (err) throw err
+    for (var i = 0; i < res.length; i++) {
+      deptArr.push(res[i].name);
+    }
+})
+return deptArr;
+}
+
+//add new employee
