@@ -328,3 +328,43 @@ function addDept() {
     })
   }
 
+//Add role
+
+function addRole() { 
+    connection.query("SELECT role.title AS Title, role.salary AS Salary FROM role LEFT JOIN department.name AS Department FROM department;",   function(err, res) {
+      inquirer.prompt([
+          {
+            name: "title",
+            type: "input",
+            message: "What is name of the new role?"
+          },
+          {
+            name: "salary",
+            type: "input",
+            message: "What is the salary of the new role?"
+          } ,
+          {
+            name: "department",
+            type: "rawlist",
+            message: "Under which department does this new role fall?",
+            choices: selectDepartment()
+          }
+      ]).then(function(answers) {
+          var deptId = selectDepartment().indexOf(answers.choice) + 1
+          connection.query(
+              "INSERT INTO role SET ?",
+              {
+                title: answers.title,
+                salary: answers.salary,
+                departmentID: deptId
+              },
+              function(err) {
+                  if (err) throw err
+                  console.table(answers);
+                  runEmployeeDB();
+              }
+          )     
+      });
+    });
+};
+
