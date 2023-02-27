@@ -210,3 +210,47 @@ return deptArr;
 }
 
 //add new employee
+function addEmployee() { 
+    inquirer.prompt([
+        {
+          name: "firstName",
+          type: "input",
+          message: "First Name: "
+        },
+        {
+          name: "lastName",
+          type: "input",
+          message: "Last Name: "
+        },
+        {
+          name: "role",
+          type: "list",
+          message: "What is the new employee's title? ",
+          choices: selectRole()
+        },
+        {
+            name: "choice",
+            type: "rawlist",
+            message: "Who is managing the new employee? ",
+            choices: selectManager()
+        }
+
+    ]).then(function (answers) {
+      var roleId = selectRole().indexOf(answers.role) + 1
+      var managerId = selectManager().indexOf(answers.choice) + 1
+      connection.query("INSERT INTO employees SET ?", 
+      {
+          firstName: answers.firstName,
+          lastName: answers.lastName,
+          managerID: managerId,
+          roleID: roleId
+          
+      }, 
+      function(err){
+          if (err) throw err
+          console.table(answers)
+          runEmployeeDB()
+      })
+
+  })
+ }
