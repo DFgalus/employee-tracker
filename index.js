@@ -104,3 +104,58 @@ function startEmployeeDB() {
         }
 })
 };
+
+//View Employees
+function viewAllEmployees() {
+    
+    connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, role.title AS Title, role.salary AS Salary, department.name AS Department, CONCAT(e.firstName, ' ' ,e.lastName) AS Manager FROM employees INNER JOIN role on role.id = employees.roleID INNER JOIN department on department.id = role.departmentID LEFT JOIN employees e on employees.managerID = e.id;", 
+    function(err, res) {
+      if (err) throw err
+      console.log ("");
+      console.log("*** EMPLOYEES LIST ***");
+      console.log ("");
+      console.table(res)
+      runEmployeeDB()
+  })
+}
+
+//View Departments
+function viewAllDepts() {
+    connection.query("SELECT department.id AS ID, department.name AS Department FROM department",
+    function(err, res) {
+      if (err) throw err
+      console.log("")
+      console.log("*** DEPARTMENT LIST ***")
+      console.log("")
+      console.table(res)
+      runEmployeeDB()
+  })
+}
+
+
+//View roles
+function viewAllRoles() {
+    connection.query("SELECT role.id AS Dept_ID, role.title AS Title FROM role",
+    function(err, res) {
+      if (err) throw err
+      console.log("")
+      console.log("*** ROLE LIST ***")
+      console.log("")
+      console.table(res)
+      runEmployeeDB()
+  })
+}
+
+
+//View employees by department
+function viewEmployeesByDept() {
+    connection.query("SELECT employees.firstName AS First_Name, employees.lastName AS Last_Name, department.name AS Department FROM employees JOIN role ON employees.roleID = role.id JOIN department ON role.departmentID = department.id ORDER BY department.id;", 
+    function(err, res) {
+      if (err) throw err
+      console.log ("");
+      console.log("*** EMPLOYEES LIST BY DEPARTMENT ***")
+      console.log ("");
+      console.table(res)
+      runEmployeeDB()
+    })
+  }
