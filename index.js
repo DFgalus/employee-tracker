@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'Naimadg7!!',
     database: 'employees_db'
 });
 
@@ -21,7 +21,7 @@ connection.connect(function(err) {
     console.log ("   WELCOME TO THE EMPLOYEE DATABASE   ");
     console.log ("");
     console.log ("======================================");
-    runEmployeeDB();
+    startEmployeeDB();
   });
 
 
@@ -115,7 +115,7 @@ function viewAllEmployees() {
       console.log("*** EMPLOYEES LIST ***");
       console.log ("");
       console.table(res)
-      runEmployeeDB()
+      startEmployeeDB()
   })
 }
 
@@ -128,7 +128,7 @@ function viewAllDepts() {
       console.log("*** DEPARTMENT LIST ***")
       console.log("")
       console.table(res)
-      runEmployeeDB()
+      startEmployeeDB()
   })
 }
 
@@ -142,7 +142,7 @@ function viewAllRoles() {
       console.log("*** ROLE LIST ***")
       console.log("")
       console.table(res)
-      runEmployeeDB()
+      startEmployeeDB()
   })
 }
 
@@ -156,7 +156,7 @@ function viewEmployeesByDept() {
       console.log("*** EMPLOYEES LIST BY DEPARTMENT ***")
       console.log ("");
       console.table(res)
-      runEmployeeDB()
+      startEmployeeDB()
     })
   }
 
@@ -169,7 +169,7 @@ function viewEmployeesByRole() {
     console.log("*** EMPLOYEES LIST BY ROLE ***")
     console.log ("");
     console.table(res)
-    runEmployeeDB()
+    startEmployeeDB()
     })
 }
 
@@ -249,7 +249,7 @@ function addEmployee() {
       function(err){
           if (err) throw err
           console.table(answers)
-          runEmployeeDB()
+          startEmployeeDB()
       })
 
   })
@@ -292,7 +292,7 @@ function addEmployee() {
                         if (err)
                             throw err;
                         console.table(answers);
-                        runEmployeeDB();
+                        startEmployeeDB();
                     });
             });
         });
@@ -321,15 +321,14 @@ function addDept() {
             },
             function(err) {
                 if (err) throw err
-                console.table(res);
-                runEmployeeDB();
+                console.table(answers);
+                startEmployeeDB();
             }
         )
     })
   }
 
 //Add role
-
 function addRole() { 
     connection.query("SELECT role.title AS Title, role.salary AS Salary FROM role LEFT JOIN department.name AS Department FROM department;",   function(err, res) {
       inquirer.prompt([
@@ -361,7 +360,7 @@ function addRole() {
               function(err) {
                   if (err) throw err
                   console.table(answers);
-                  runEmployeeDB();
+                  startEmployeeDB();
               }
           )     
       });

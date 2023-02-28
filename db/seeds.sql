@@ -20,7 +20,7 @@ INSERT INTO role (title, salary, departmentID) VALUES ('Billing Coordinator', 12
 
 INSERT INTO role (title, salary, departmentID) VALUES ('Lawyer', 145000, 4);
 
-INSERT INTO role (title, salary, departmentID) VALUES ("Operations Manager.", 145000, 5);
+INSERT INTO role (title, salary, departmentID) VALUES ("Operations Manager", 145000, 5);
 
 INSERT INTO role (title, salary, departmentID) VALUES ("HR Coordinator", 105000, 10);
 
@@ -40,6 +40,4 @@ INSERT INTO employees (firstName, lastName, roleID, managerID) VALUES ('Edward',
 INSERT INTO employees (firstName, lastName, roleID, managerID) VALUES ('Thomas', 'Waller', 11, null);
 INSERT INTO employees (firstName, lastName, roleID, managerID) VALUES ('John', 'Gillespie', 7, 6);
 INSERT INTO employees (firstName, lastName, roleID, managerID) VALUES ('Shirley', 'Horn', 2, 1);
-
-
 
