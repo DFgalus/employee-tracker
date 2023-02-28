@@ -256,48 +256,47 @@ function addEmployee() {
  }
 
 //Update employee role
- function updateEmployeeRole() {
-    connection.query("SELECT employees.lastName, role.title FROM employees JOIN role ON employees.roleID = role.id;", 
-    (err, res) => {
-            if (err) throw err;
- 
-            inquirer.prompt([
-                {
-                    name: "lastName",
-                    type: "rawlist",
-                    choices: function () {
-                        var lastName = [];
-                        for (var i = 0; i < res.length; i++) {
-                            lastName.push(res[i].lastName);
-                        }
-                        return lastName;
-                    },
-                    message: "What is the employee's last name? ",
-                },
-                {
-                    name: "role",
-                    type: "rawlist",
-                    message: "What is the employee's new title? ",
-                    choices: selectRole()
-                },
-            ]).then(function (answers) {
-                var roleId = selectRole().indexOf(answers.role) + 1;
-                connection.query("UPDATE employees SET WHERE ?",
-                    {
-                        lastName: answers.lastName,
-                        roleID: roleId
-                    },
-        
-                    function (err) {
-                        if (err)
-                            throw err;
-                        console.table(answers);
-                        startEmployeeDB();
-                    });
-            });
-        });
-  }
+function updateEmployeeRole() {
+  connection.query("SELECT employees.lastName, role.title FROM employees JOIN role ON employees.roleID = role.id;", 
+  (err, res) => {
+          if (err) throw err;
 
+          inquirer.prompt([
+              {
+                  name: "lastName",
+                  type: "rawlist",
+                  choices: function () {
+                      let lastName = [];
+                      for (var i = 0; i < res.length; i++) {
+                          lastName.push(res[i].lastName);
+                      }
+                      return lastName;
+                  },
+                  message: "What is the employee's last name? ",
+              },
+              {
+                  name: "role",
+                  type: "rawlist",
+                  message: "What is the employee's new title? ",
+                  choices: selectRole()
+              },
+          ]).then(function (answers) {
+              var roleId = selectRole().indexOf(answers.role) + 1;
+              connection.query("UPDATE employees SET WHERE ?",
+                  {
+                      lastName: answers.lastName,
+                      roleID: roleId
+                  },
+      
+                  function (err) {
+                      if (err)
+                          throw err;
+                      console.table(res);
+                      runEmployeeDB();
+                  });
+          });
+      });
+}
 //Add department
 function addDept() { 
 
